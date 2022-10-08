@@ -20,7 +20,8 @@ kafka_server = 'kafka:9092'
 producer = KafkaProducer(bootstrap_servers=kafka_server, value_serializer=lambda x: json.dumps(x).encode('utf-8'))
 
 #------key word or hashtag to get from stream twitter------
-hashtag='data'
+hashtag='sql' # change hashtag from "data" to "sql"
+keywords = ['2022', 'python', 'sql'] # add keywords array
 
 #============== Twitter  authentication =============
 class TwitterAuth:
@@ -41,7 +42,7 @@ class TwitterStreamer:
             listener = MyListener()
             auth = self.twitterAuth.authenticate()
             stream = Stream(auth, listener)
-            stream.filter(track=[hashtag])
+            stream.filter(track=keywords) # edit from "[hashtag]" to keywords
 
 #============== Tweet Listener =============
 class MyListener(StreamListener):
